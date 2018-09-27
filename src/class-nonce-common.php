@@ -6,7 +6,7 @@ namespace Inpsyde\Nonce;
  * Common Nonce abstract class.
  * 
  * Shared across all subclasses (Nonce, Nonce_URL, Nonce_Field)
- * to access common methods.
+ * to access common methods. Do not instantiate.
  */
 abstract class Nonce_Common {
 	/**
