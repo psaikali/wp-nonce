@@ -2,7 +2,7 @@
 
 namespace Inpsyde\Nonce;
 
-class Nonce_Common {
+abstract class Nonce_Common {
 	private static $default_action = -1;
 	private static $default_key    = '_wpnonce';
 	protected $action;
