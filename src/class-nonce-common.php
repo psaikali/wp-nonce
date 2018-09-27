@@ -23,10 +23,10 @@ abstract class Nonce_Common {
 	}
 
 	public function setAction( $action ) {
-		if ( is_null( $action ) ) {
-			$this->action = $this->getDefaultAction();
-		} else {
+		if ( is_scalar( $action ) || is_array( $action ) ) {
 			$this->action = $action;
+		} else {
+			$this->action = $this->getDefaultAction();
 		}
 
 		return $this->getAction();
