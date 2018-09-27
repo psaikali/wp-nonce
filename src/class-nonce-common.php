@@ -34,7 +34,7 @@ abstract class Nonce_Common {
 
 	public function setKey( $key ) {
 		if ( is_null( $key ) ) {
-			$this->action = $this->getDefaultKey();
+			$this->key = $this->getDefaultKey();
 		} else {
 			$this->key = $key;
 		}
@@ -60,7 +60,7 @@ abstract class Nonce_Common {
 	}
 
 	public function getDefaultKey() {
-		$this->key = apply_filters( 'inpsyde.nonce.default_key', self::$default_key );
+		return apply_filters( 'inpsyde.nonce.default_key', self::$default_key );
 	}
 
 	public function getNonce() {
