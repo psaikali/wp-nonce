@@ -80,8 +80,12 @@ abstract class Nonce_Common {
 		}
 
 		if ( is_array( $action ) ) {
-			if ( ! isset( $action[0] ) || ! isset( $action[1] ) || ! is_string( $action[0] ) || ! is_array( $action[1] ) ) {
-				return new \WP_Error( 'invalid_arguments', 'When passing an array as an action, please provide a string as first item and an array as second item.', $action );
+			if ( empty( $action ) 
+				|| ! isset( $action[0] ) 
+				|| ! isset( $action[1] ) 
+				|| ! is_string( $action[0] ) 
+				|| ! is_array( $action[1] ) ) {
+				return new \WP_Error( 'invalid_arguments', 'When passing an array as an action, please provide a string as first value and an array as second value.', $action );
 			}
 
 			$format = $action[0];
