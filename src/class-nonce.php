@@ -6,7 +6,8 @@ class Nonce extends Nonce_Common {
 	public function create() {
 		$nonce = wp_create_nonce( $this->getAction() );
 		$this->setNonce( $nonce );
-		return $nonce;
+
+		return $this->getNonce();
 	}
 	
 	public function isValid( $value = null ) {
