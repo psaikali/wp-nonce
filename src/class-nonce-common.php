@@ -2,18 +2,67 @@
 
 namespace Inpsyde\Nonce;
 
+/**
+ * Common Nonce abstract class.
+ * 
+ * Shared across all subclasses (Nonce, Nonce_URL, Nonce_Field)
+ * to access common methods.
+ */
 abstract class Nonce_Common {
+	/**
+	 * Default action to be used if no nonce action is set by user
+	 *
+	 * @var integer
+	 */
 	private static $default_action = -1;
-	private static $default_key    = '_wpnonce';
+
+	/**
+	 * Default key to be used if no key is set by user
+	 *
+	 * @var string
+	 */
+	private static $default_key = '_wpnonce';
+
+	/**
+	 * The original action passed by user on instantiation
+	 *
+	 * @var string|array
+	 */
 	protected $action;
+
+	/**
+	 * The key used as URL or input parameter name
+	 *
+	 * @var string
+	 */
 	protected $key;
+
+	/**
+	 * The generated nonce
+	 *
+	 * @var string
+	 */
 	protected $nonce;
 
+	/**
+	 * Common constructor to instantiate a new nonce.
+	 * Does not create the nonce itself yet, but stores the action and key.
+	 *
+	 * @param string|array $action
+	 * @param string $key
+	 */
 	public function __construct( $action = null, $key = null ) {
 		$this->setAction( $action );
 		$this->setKey( $key );
 	}
 
+	/**
+	 * Magic method to return the generated $nonce if we echo the object.
+	 * Will return the generated $nonce if it was created, or a readable message
+	 * if $nonce was not yet created.
+	 *
+	 * @return string
+	 */
 	public function __toString() {
 		if ( is_null( $this->getNonce() ) ) {
 			return 'Please call the create() method first in order to generate the nonce.';
@@ -22,6 +71,12 @@ abstract class Nonce_Common {
 		return $this->getNonce();
 	}
 
+	/**
+	 * Setter method to set the $action.
+	 *
+	 * @param string|float|int|array $action
+	 * @return string $action The formatted action
+	 */
 	public function setAction( $action ) {
 		if ( is_scalar( $action ) || is_array( $action ) ) {
 			$this->action = $action;
@@ -32,6 +87,12 @@ abstract class Nonce_Common {
 		return $this->getAction();
 	}
 
+	/**
+	 * Setter method to set the $key.
+	 *
+	 * @param string $key
+	 * @return string $key The key
+	 */
 	public function setKey( $key ) {
 		if ( is_null( $key ) ) {
 			$this->key = $this->getDefaultKey();
@@ -42,27 +103,58 @@ abstract class Nonce_Common {
 		return $this->getKey();
 	}
 
+	/**
+	 * Setter method to set the $nonce.
+	 *
+	 * @param string $nonce
+	 * @return string $nonce
+	 */
 	public function setNonce( $nonce ) {
 		$this->nonce = $nonce;
 		return $this->getNonce();
 	}
 
+	/**
+	 * Getter method to get the action and format it.
+	 *
+	 * @return string $action
+	 */
 	public function getAction() {
 		return ( is_null( $this->action ) ) ? $this->getDefaultAction() : $this->formatAction( $this->action );
 	}
 
+	/**
+	 * Getter method to get the default action.
+	 *
+	 * @return string
+	 */
 	public function getDefaultAction() {
 		return apply_filters( 'inpsyde.nonce.default_action', self::$default_action );
 	}
 
+	/**
+	 * Getter method to get the key.
+	 *
+	 * @return string
+	 */
 	public function getKey() {
 		return $this->key;
 	}
 
+	/**
+	 * Getter method to get the default key.
+	 *
+	 * @return string
+	 */
 	public function getDefaultKey() {
 		return apply_filters( 'inpsyde.nonce.default_key', self::$default_key );
 	}
 
+	/**
+	 * Getter method to get the generated nonce.
+	 *
+	 * @return string
+	 */
 	public function getNonce() {
 		return $this->nonce;
 	}
