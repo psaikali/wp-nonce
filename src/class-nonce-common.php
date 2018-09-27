@@ -15,7 +15,11 @@ abstract class Nonce_Common {
 	}
 
 	public function __toString() {
-		return $this->nonce;
+		if ( is_null( $this->getNonce() ) ) {
+			return 'Please call the create() method first in order to generate the nonce.';
+		}
+	
+		return $this->getNonce();
 	}
 
 	public function setAction( $action ) {
