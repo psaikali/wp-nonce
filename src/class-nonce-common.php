@@ -44,7 +44,7 @@ abstract class Nonce_Common {
 	}
 
 	public function getAction() {
-		return $this->formatAction( $this->action );
+		return ( is_null( $this->action ) ) ? $this->getDefaultAction() : $this->formatAction( $this->action );
 	}
 
 	public function getDefaultAction() {
