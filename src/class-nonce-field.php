@@ -43,7 +43,7 @@ class Nonce_Field extends Nonce_Common {
 	 * @param string $nonce_field
 	 * @return string $nonce_field The hidden input nonce field HTML markup.
 	 */
-	public function setNonceField( $nonce_field ) {
+	protected function setNonceField( $nonce_field ) {
 		$this->nonce_field = $nonce_field;
 		return $this->getNonceField();
 	}
@@ -63,7 +63,7 @@ class Nonce_Field extends Nonce_Common {
 	 * @param bool $referer
 	 * @return bool $referer The referer parameter value.
 	 */
-	public function setReferer( $referer ) {
+	protected function setReferer( $referer ) {
 		$this->referer = $referer;
 		return $this->getReferer();
 	}

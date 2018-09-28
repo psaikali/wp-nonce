@@ -43,7 +43,7 @@ class Nonce_URL extends Nonce_Common {
 	 * @param string $url
 	 * @return string $url The original URL to be nonced.
 	 */
-	public function setUrl( $url ) {
+	protected function setUrl( $url ) {
 		$this->url = $url;
 		return $this->getUrl();
 	}
@@ -63,7 +63,7 @@ class Nonce_URL extends Nonce_Common {
 	 * @param string $nonce_url
 	 * @return string $nonce_url The nonced URL.
 	 */
-	public function setNonceUrl( $nonce_url ) {
+	protected function setNonceUrl( $nonce_url ) {
 		$this->nonce_url = $nonce_url;
 		return $this->getNonceUrl();
 	}
