@@ -116,7 +116,7 @@ class Nonce_Test extends Nonce_Test_Case {
 		$tested_nonce = ( new Nonce( $unformatted_action ) );
 
 		$this->assertSame( $wp_nonce, $tested_nonce->create() );
-		$this->assertSame( 1, $tested_nonce->isValid( $wp_nonce ) );
+		$this->assertValidNonce( $tested_nonce->isValid( $wp_nonce ) );
 	}
 
 	/**
@@ -147,11 +147,11 @@ class Nonce_Test extends Nonce_Test_Case {
 
 		// Fake a nonce stored in the $_REQUEST with default key.
 		$_REQUEST[ self::$default_key ] = wp_create_nonce( $action );
-		$this->assertSame( 1, $admin_nonce_with_default_key->isValidAdminRequest() );
+		$this->assertValidNonce( $admin_nonce_with_default_key->isValidAdminRequest() );
 
 		// Fake a nonce stored in the $_REQUEST with custom key.
 		$_REQUEST[ $custom_key ] = wp_create_nonce( $action );
-		$this->assertSame( 1, $admin_nonce_with_custom_key->isValidAdminRequest() );
+		$this->assertValidNonce( $admin_nonce_with_custom_key->isValidAdminRequest() );
 
 		unset( $_REQUEST[ self::$default_key ] );
 
@@ -176,11 +176,11 @@ class Nonce_Test extends Nonce_Test_Case {
 
 		// Fake a nonce stored in the $_REQUEST with default key.
 		$_REQUEST[ self::$default_key ] = wp_create_nonce( $action );
-		$this->assertSame( 1, $ajax_nonce_with_default_key->isValidAjaxRequest( false ) );
+		$this->assertValidNonce( $ajax_nonce_with_default_key->isValidAjaxRequest( false ) );
 
 		// Fake a nonce stored in the $_REQUEST with custom key.
 		$_REQUEST[ $custom_key ] = wp_create_nonce( $action );
-		$this->assertSame( 1, $ajax_nonce_with_custom_key->isValidAjaxRequest( false ) );
+		$this->assertValidNonce( $ajax_nonce_with_custom_key->isValidAjaxRequest( false ) );
 
 		// Unset faked nonces in $_REQUEST.
 		unset( $_REQUEST[ self::$default_key ] );
