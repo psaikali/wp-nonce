@@ -114,6 +114,11 @@ abstract class Nonce_Common {
 	 * @return string
 	 */
 	public function getDefaultAction() {
+		/**
+		 * This filter lets user change, via code, the default action 
+		 * if no $action parameter is passed in the constructor.
+		 * The default action used is the WordPress one (-1).
+		 */
 		return apply_filters( 'inpsyde.nonce.default_action', self::$default_action );
 	}
 
@@ -132,6 +137,11 @@ abstract class Nonce_Common {
 	 * @return string
 	 */
 	public function getDefaultKey() {
+		/**
+		 * This filter lets user change, via code, the default key
+		 * if no $key parameter is passed in the constructor.
+		 * The default key used is the WordPress one (_wpnonce).
+		 */
 		return apply_filters( 'inpsyde.nonce.default_key', self::$default_key );
 	}
 
