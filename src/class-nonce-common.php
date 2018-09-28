@@ -57,21 +57,6 @@ abstract class Nonce_Common {
 	}
 
 	/**
-	 * Magic method to return the generated $nonce if we echo the object.
-	 * Will return the generated $nonce if it was created, or a readable message
-	 * if $nonce was not yet created.
-	 *
-	 * @return string
-	 */
-	public function __toString() {
-		if ( is_null( $this->getNonce() ) ) {
-			return 'Please call the create() method first in order to generate the nonce.';
-		}
-	
-		return $this->getNonce();
-	}
-
-	/**
 	 * Setter method to set the $action.
 	 *
 	 * @param string|float|int|array $action
@@ -185,5 +170,20 @@ abstract class Nonce_Common {
 
 			return vsprintf( $format, $args );
 		}
+	}
+
+	/**
+	 * Magic method to return the generated $nonce if we echo the object.
+	 * Will return the generated $nonce if it was created, or a readable message
+	 * if $nonce was not yet created.
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		if ( is_null( $this->getNonce() ) ) {
+			return 'Please call the create() method first in order to generate the nonce.';
+		}
+	
+		return $this->getNonce();
 	}
 }
