@@ -77,7 +77,7 @@ abstract class Nonce_Common {
 	 * @param string|float|int|array $action
 	 * @return string $action The formatted action
 	 */
-	public function setAction( $action ) {
+	protected function setAction( $action ) {
 		if ( is_scalar( $action ) || is_array( $action ) ) {
 			$this->action = $action;
 		} else {
@@ -93,7 +93,7 @@ abstract class Nonce_Common {
 	 * @param string $key
 	 * @return string $key The key
 	 */
-	public function setKey( $key ) {
+	protected function setKey( $key ) {
 		if ( is_null( $key ) ) {
 			$this->key = $this->getDefaultKey();
 		} else {
@@ -109,7 +109,7 @@ abstract class Nonce_Common {
 	 * @param string $nonce
 	 * @return string $nonce
 	 */
-	public function setNonce( $nonce ) {
+	protected function setNonce( $nonce ) {
 		$this->nonce = $nonce;
 		return $this->getNonce();
 	}
