@@ -158,28 +158,30 @@ abstract class Nonce_Common {
 	 * Format an action by giving a simple string, 
 	 * or an array like [ 'action_%s_%d', [ 'string', 123 ] ] to generate a dynamic action string using vsprintf()
 	 *
-	 * @param string|array $action The action to format: a simple string, or an array to use just like vsprintf() to render a dynamic string.
-	 * @return string|WP_Error Formatted action string, or a WP_Error if the $action parameter is an invalid array to use with vsprintf().
+	 * @param string|array ...$action The action to format: a simple string, or an array to use in a sprintf() or vsprintf() manner to render a dynamic string.
+	 * @return string Formatted action string if passed $action parameter is valid, or default action if parameter is invalid.
 	 */
-	protected function formatAction( $action ) {
+	protected function formatAction( ...$action ) {
+		$action = $action[0];
+
 		if ( is_scalar( $action ) ) {
 			return $action;
 		}
 
-		if ( is_array( $action ) ) {
-			if ( empty( $action ) 
-				|| ! isset( $action[0] ) 
-				|| ! isset( $action[1] ) 
-				|| ! is_string( $action[0] ) 
-				|| ! is_array( $action[1] ) ) {
-				return new \WP_Error( 'invalid_arguments', 'When passing an array as an action, please provide a string as first value and an array as second value.', $action );
-			}
+		if ( is_array( $action ) && ! empty( $action ) ) {
+			$format = array_shift( $action );
 
-			$format = $action[0];
-			$args   = $action[1];
+			/**
+			 * Simple hack to allow using vsprintf()-or-sprintf()-like formats, so that
+			 * [ 'placeholder_%1$s_%2$d, [ 'string', 1234 ] ] and 
+			 * [ 'placeholder_%1$s_%2$d, 'string', 1234 ] will work the same.
+			 */
+			$args = is_array( $action[0] ) ? $action[0] : $action;
 
 			return vsprintf( $format, $args );
 		}
+
+		return $this->getDefaultAction();
 	}
 
 	/**
