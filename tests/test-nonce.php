@@ -23,6 +23,17 @@ class Nonce_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test that creating a nonce will return the generated nonce
+	 */
+	public function test_creation_returns_a_nonce() {
+		$nonce           = new Nonce();
+		$generated_nonce = $nonce->create();
+
+		$this->assertNotNull( $generated_nonce );
+		$this->assertSame( $nonce->getNonce(), $generated_nonce );
+	}
+
+	/**
 	 * Test that creation correctly generates, sets and returns a nonce.
 	 */
 	public function test_existence_of_nonce_before_and_after_creation() {
