@@ -16,7 +16,7 @@ class Nonce_Test_Case extends WP_UnitTestCase {
 	 * @return bool Validity of the nonce
 	 */
 	public function assertValidNonce( $nonce ) {
-		return (bool) $nonce;
+		return $this->assertTrue( (bool) $nonce );
 	}
 
 	/**
