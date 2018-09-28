@@ -3,6 +3,9 @@
 use Inpsyde\Nonce\Nonce as Nonce;
 use Inpsyde\Nonce\Nonce_URL as Nonce_URL;
 
+/**
+ * @group nonce-url
+ */
 class Nonce_URL_Test extends Nonce_Test_Case {
 	/**
 	 * Test if our class exists.

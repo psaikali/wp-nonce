@@ -2,6 +2,9 @@
 
 use Inpsyde\Nonce\Nonce as Nonce;
 
+/**
+ * @group nonce
+ */
 class Nonce_Test extends Nonce_Test_Case {
 	/**
 	 * Test if our class exists.
