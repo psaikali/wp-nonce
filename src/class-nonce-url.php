@@ -28,7 +28,7 @@ class Nonce_URL extends Nonce_Common {
 	 * @param string $url The original URL.
 	 * @return string $nonce_url The generated nonce URL string.
 	 */
-	public function create( $url ) {
+	public function create( string $url ) {
 		$this->setUrl( $url );
 		$nonce_url = wp_nonce_url( $this->getUrl(), $this->getAction(), $this->getKey() );
 		$this->setNonceUrl( $nonce_url );
@@ -43,7 +43,7 @@ class Nonce_URL extends Nonce_Common {
 	 * @param string $url
 	 * @return string $url The original URL to be nonced.
 	 */
-	protected function setUrl( $url ) {
+	protected function setUrl( string $url ) {
 		$this->url = $url;
 		return $this->getUrl();
 	}
@@ -63,7 +63,7 @@ class Nonce_URL extends Nonce_Common {
 	 * @param string $nonce_url
 	 * @return string $nonce_url The nonced URL.
 	 */
-	protected function setNonceUrl( $nonce_url ) {
+	protected function setNonceUrl( string $nonce_url ) {
 		$this->nonce_url = $nonce_url;
 		return $this->getNonceUrl();
 	}

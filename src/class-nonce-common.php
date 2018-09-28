@@ -94,7 +94,7 @@ abstract class Nonce_Common {
 	 * @param string $nonce
 	 * @return string $nonce The generated nonce.
 	 */
-	protected function setNonce( $nonce ) {
+	protected function setNonce( string $nonce ) {
 		$this->nonce = $nonce;
 		return $this->getNonce();
 	}
