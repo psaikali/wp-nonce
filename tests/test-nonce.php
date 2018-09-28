@@ -2,10 +2,7 @@
 
 use Inpsyde\Nonce\Nonce as Nonce;
 
-class Nonce_Test extends WP_UnitTestCase {
-	private static $default_action = -1;
-	private static $default_key    = '_wpnonce';
-	
+class Nonce_Test extends Nonce_Test_Case {
 	/**
 	 * Test if our class exists.
 	 */
