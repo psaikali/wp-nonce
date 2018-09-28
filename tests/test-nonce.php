@@ -23,6 +23,47 @@ class Nonce_Test extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test that creation correctly generates, sets and returns a nonce.
+	 */
+	public function test_existence_of_nonce_before_and_after_creation() {
+		$action = 'random_action';
+		$nonce  = new Nonce( $action );
+
+		$this->assertNull( $nonce->getNonce() );
+
+		$nonce->create();
+
+		$this->assertNotNull( $nonce->getNonce() );
+	}
+
+	/**
+	 * Test that echoing the class will echo an error message if nonce is not generated yet
+	 */
+	public function test_echoing_nonce_object_before_creation() {
+		$action = 'random_action';
+		$nonce  = new Nonce( $action );
+
+		$expected_error_message = 'Please call the create() method first in order to generate the nonce.';
+		$this->expectOutputString( $expected_error_message );
+
+		echo $nonce;
+	}
+	
+	/**
+	 * Test that echoing the class will echo the generated nonce if create() has been called
+	 */
+	public function test_echoing_nonce_object_after_creation() {
+		$action = 'random_action';
+		$nonce  = new Nonce( $action );
+		$nonce->create();
+
+		$expected_nonce = $nonce->getNonce();
+		$this->expectOutputString( $expected_nonce );
+
+		echo $nonce;
+	}
+
+	/**
 	 * Test the multiple ways of setting an action.
 	 */
 	public function test_nonce_get_action_parameters_multiformats() {
