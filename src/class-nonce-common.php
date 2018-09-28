@@ -60,7 +60,7 @@ abstract class Nonce_Common {
 	 * Setter method to set the $action.
 	 *
 	 * @param string|float|int|array $action
-	 * @return string $action The formatted action
+	 * @return string $action The formatted action used to generate the nonce.
 	 */
 	protected function setAction( $action ) {
 		if ( is_scalar( $action ) || is_array( $action ) ) {
@@ -76,7 +76,7 @@ abstract class Nonce_Common {
 	 * Setter method to set the $key.
 	 *
 	 * @param string $key
-	 * @return string $key The key
+	 * @return string $key The key used to access the nonce in the URL or input field.
 	 */
 	protected function setKey( $key ) {
 		if ( is_null( $key ) ) {
@@ -92,7 +92,7 @@ abstract class Nonce_Common {
 	 * Setter method to set the $nonce.
 	 *
 	 * @param string $nonce
-	 * @return string $nonce
+	 * @return string $nonce The generated nonce.
 	 */
 	protected function setNonce( $nonce ) {
 		$this->nonce = $nonce;
@@ -102,7 +102,7 @@ abstract class Nonce_Common {
 	/**
 	 * Getter method to get the action and format it.
 	 *
-	 * @return string $action
+	 * @return string $action The formatted action used to generate the nonce.
 	 */
 	public function getAction() {
 		return ( is_null( $this->action ) ) ? $this->getDefaultAction() : $this->formatAction( $this->action );
@@ -111,7 +111,7 @@ abstract class Nonce_Common {
 	/**
 	 * Getter method to get the default action.
 	 *
-	 * @return string
+	 * @return string $default_action The default action used if no $action is passed in the constructor.
 	 */
 	public function getDefaultAction() {
 		/**
@@ -125,7 +125,7 @@ abstract class Nonce_Common {
 	/**
 	 * Getter method to get the key.
 	 *
-	 * @return string
+	 * @return string $key The key used to access the nonce in the URL or input field.
 	 */
 	public function getKey() {
 		return $this->key;
@@ -134,7 +134,7 @@ abstract class Nonce_Common {
 	/**
 	 * Getter method to get the default key.
 	 *
-	 * @return string
+	 * @return string $default_key The default key used if no $key is passed in the constructor.
 	 */
 	public function getDefaultKey() {
 		/**
@@ -148,7 +148,7 @@ abstract class Nonce_Common {
 	/**
 	 * Getter method to get the generated nonce.
 	 *
-	 * @return string
+	 * @return string $nonce The generated nonce.
 	 */
 	public function getNonce() {
 		return $this->nonce;
@@ -187,7 +187,7 @@ abstract class Nonce_Common {
 	 * Will return the generated $nonce if it was created, or a readable message
 	 * if $nonce was not yet created.
 	 *
-	 * @return string
+	 * @return string $message|$nonce
 	 */
 	public function __toString() {
 		if ( is_null( $this->getNonce() ) ) {
