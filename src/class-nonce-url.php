@@ -81,9 +81,9 @@ class Nonce_URL extends Nonce_Common {
 	 * Verify if a nonce is valid.
 	 *
 	 * @param string $value (optional) The value to verify against the generated nonce.
-	 *                                 If no value is passed, the function will check for the URL parameter itself
-	 *                                 if it's present, otherwise the generated nonce will be used to check 
-	 *                                 if it is still valid, you know, just in case ¯\_(ツ)_/¯.
+	 *                                 If no value is passed, the function will look for the URL parameter itself
+	 *                                 if it's present and check against it, otherwise the generated nonce 
+	 *                                 will be used to check if it is still valid, you know, just in case ¯\_(ツ)_/¯.
 	 * @return false|int False if the nonce is invalid, 1 if the nonce is valid and generated between
 	 *                   0-12 hours ago, 2 if the nonce is valid and generated between 12-24 hours ago.
 	 */
