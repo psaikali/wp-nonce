@@ -37,11 +37,24 @@ class Nonce extends Nonce_Common {
 		return wp_verify_nonce( $value, $this->getAction() );
 	}
 
+	/**
+	 * Verify if we are dealing with a valid admin request.
+	 *
+	 * @return false|int False if the nonce is invalid, 1 if the nonce is valid and generated between
+	 *                   0-12 hours ago, 2 if the nonce is valid and generated between 12-24 hours ago.
+	 */
 	public function isValidAdminRequest() {
-
+		return check_admin_referer( $this->getAction(), $this->getKey() );
 	}
 
-	public function isValidAjaxRequest() {
-
+	/**
+	 * Verify if we are dealing with a valid AJAX request.
+	 *
+	 * @param boolean $die
+	 * @return false|int False if the nonce is invalid, 1 if the nonce is valid and generated between
+	 *                   0-12 hours ago, 2 if the nonce is valid and generated between 12-24 hours ago.
+	 */
+	public function isValidAjaxRequest( $die = true ) {
+		return check_ajax_referer( $this->getAction(), $this->getKey(), $die );
 	}
 }
