@@ -48,8 +48,8 @@ abstract class Nonce_Common {
 	 * Common constructor to instantiate a new nonce.
 	 * Does not create the nonce itself yet, but stores the action and key.
 	 *
-	 * @param string|array $action
-	 * @param string $key
+	 * @param string|array $action (optional) An action to be used to generate the nonce.
+	 * @param string       $key (optional) A key to be used to "store" the nonce in URL or input field.
 	 */
 	public function __construct( $action = null, $key = null ) {
 		$this->setAction( $action );
