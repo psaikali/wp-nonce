@@ -4,9 +4,6 @@
  *
  * @package Inpsyde_Nonce
  */
-
-define( 'WP_CURRENTLY_TESTING', true );
-
 $_tests_dir = getenv( 'WP_TESTS_DIR' );
 
 if ( ! $_tests_dir ) {
@@ -26,18 +23,19 @@ require_once $_tests_dir . '/includes/functions.php';
  */
 function _manually_load_plugin() {
 	$files = [
-		'/src/class-nonce-common.php',
-		'/src/class-nonce.php',
-		'/src/class-nonce-verificator.php',
-		'/src/class-nonce-url.php',
-		'/src/class-nonce-field.php',
+		'class-nonce-common.php',
+		'class-nonce.php',
+		'class-nonce-url.php',
+		'class-nonce-field.php',
 	];
 
-	array_walk( $files, function() {
-		//require dirname( dirname( __FILE__ ) ) . '/radios-yt.php';
-	});
+	array_walk( $files, function( $file ) {
+		require_once dirname( __FILE__ ) . "/src/{$file}";
+	} );
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 // Start up the WP testing environment.
-require $_tests_dir . '/includes/bootstrap.php';
+require_once $_tests_dir . '/includes/bootstrap.php';
+
+require_once dirname( __FILE__ ) . '/tests/inc/class-nonce-test-case.php';
