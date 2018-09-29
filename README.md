@@ -142,3 +142,8 @@ $admin_nonce = new Nonce( $action, $key );
 var_dump( $admin_nonce->is_valid_ajax_request( false ) );
 ```
 Results in `true` if the current `$_REQUEST[ $key ]` (or `$_REQUEST[ '_ajax_nonce' ]` or `$_REQUEST[ '_wpnonce' ]`) stores a valid nonce for the `$action` action.
+
+---
+## Changelog
+2018-09-20 :
+- first release marking v1.0
