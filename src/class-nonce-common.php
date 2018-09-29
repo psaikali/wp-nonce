@@ -9,7 +9,6 @@ namespace Inpsyde\Nonce;
  * to access common methods. Do not instantiate.
  */
 abstract class Nonce_Common {
-	
 	/**
 	 * Default action to be used if no nonce action is set by user
 	 *
