@@ -4,7 +4,7 @@ namespace Inpsyde\Nonce;
 
 /**
  * Default Nonce class.
- * 
+ *
  * Allows user to create a basic WordPress nonce.
  */
 class Nonce extends Nonce_Common {
@@ -14,27 +14,27 @@ class Nonce extends Nonce_Common {
 	 * @return string $nonce The generated nonce string.
 	 */
 	public function create() {
-		$nonce = wp_create_nonce( $this->getAction() );
-		$this->setNonce( $nonce );
+		$nonce = wp_create_nonce( $this->get_action() );
+		$this->set_nonce( $nonce );
 
-		return $this->getNonce();
+		return $this->get_nonce();
 	}
-	
+
 	/**
 	 * Verify if a nonce is valid.
 	 *
 	 * @param string $value (optional) The value to verify against the generated nonce.
-	 *                                 If no value is passed, the generated nonce will be used to check 
+	 *                                 If no value is passed, the generated nonce will be used to check
 	 *                                 if it is still valid, you know, just in case ¯\_(ツ)_/¯.
 	 * @return false|int False if the nonce is invalid, 1 if the nonce is valid and generated between
 	 *                   0-12 hours ago, 2 if the nonce is valid and generated between 12-24 hours ago.
 	 */
-	public function isValid( $value = null ) {
+	public function is_valid( $value = null ) {
 		if ( is_null( $value ) ) {
-			$value = $this->getNonce();
+			$value = $this->get_nonce();
 		}
 
-		return wp_verify_nonce( $value, $this->getAction() );
+		return wp_verify_nonce( $value, $this->get_action() );
 	}
 
 	/**
@@ -43,8 +43,8 @@ class Nonce extends Nonce_Common {
 	 * @return false|int False if the nonce is invalid, 1 if the nonce is valid and generated between
 	 *                   0-12 hours ago, 2 if the nonce is valid and generated between 12-24 hours ago.
 	 */
-	public function isValidAdminRequest() {
-		return check_admin_referer( $this->getAction(), $this->getKey() );
+	public function is_valid_admin_request() {
+		return check_admin_referer( $this->get_action(), $this->get_key() );
 	}
 
 	/**
@@ -54,7 +54,7 @@ class Nonce extends Nonce_Common {
 	 * @return false|int False if the nonce is invalid, 1 if the nonce is valid and generated between
 	 *                   0-12 hours ago, 2 if the nonce is valid and generated between 12-24 hours ago.
 	 */
-	public function isValidAjaxRequest( $die = true ) {
-		return check_ajax_referer( $this->getAction(), $this->getKey(), $die );
+	public function is_valid_ajax_request( $die = true ) {
+		return check_ajax_referer( $this->get_action(), $this->get_key(), $die );
 	}
 }

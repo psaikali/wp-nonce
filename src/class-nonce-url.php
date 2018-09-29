@@ -4,7 +4,7 @@ namespace Inpsyde\Nonce;
 
 /**
  * Nonce class for URLs.
- * 
+ *
  * Allows user to insert/verify a nonce stored in a URL parameter.
  */
 class Nonce_URL extends Nonce_Common {
@@ -29,12 +29,12 @@ class Nonce_URL extends Nonce_Common {
 	 * @return string $nonce_url The generated nonce URL string.
 	 */
 	public function create( string $url ) {
-		$this->setUrl( $url );
-		$nonce_url = wp_nonce_url( $this->getUrl(), $this->getAction(), $this->getKey() );
-		$this->setNonceUrl( $nonce_url );
-		$this->setNonce( wp_create_nonce( $this->getAction() ) );
-		
-		return $this->getNonceUrl();
+		$this->set_url( $url );
+		$nonce_url = wp_nonce_url( $this->get_url(), $this->get_action(), $this->get_key() );
+		$this->set_nonce_url( $nonce_url );
+		$this->set_nonce( wp_create_nonce( $this->get_action() ) );
+
+		return $this->get_nonce_url();
 	}
 
 	/**
@@ -43,9 +43,9 @@ class Nonce_URL extends Nonce_Common {
 	 * @param string $url
 	 * @return string $url The original URL to be nonced.
 	 */
-	protected function setUrl( string $url ) {
+	protected function set_url( string $url ) {
 		$this->url = $url;
-		return $this->getUrl();
+		return $this->get_url();
 	}
 
 	/**
@@ -53,19 +53,19 @@ class Nonce_URL extends Nonce_Common {
 	 *
 	 * @return string $url The original URL to be nonced.
 	 */
-	public function getUrl() {
+	public function get_url() {
 		return $this->url;
 	}
-	
+
 	/**
 	 * Setter method to store the nonced URL.
 	 *
 	 * @param string $nonce_url
 	 * @return string $nonce_url The nonced URL.
 	 */
-	protected function setNonceUrl( string $nonce_url ) {
+	protected function set_nonce_url( string $nonce_url ) {
 		$this->nonce_url = $nonce_url;
-		return $this->getNonceUrl();
+		return $this->get_nonce_url();
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Nonce_URL extends Nonce_Common {
 	 *
 	 * @return string $nonce_url The nonced URL.
 	 */
-	public function getNonceUrl() {
+	public function get_nonce_url() {
 		return $this->nonce_url;
 	}
 
@@ -82,16 +82,16 @@ class Nonce_URL extends Nonce_Common {
 	 *
 	 * @param string $value (optional) The value to verify against the generated nonce.
 	 *                                 If no value is passed, the function will look for the URL parameter itself
-	 *                                 if it's present and check against it, otherwise the generated nonce 
+	 *                                 if it's present and check against it, otherwise the generated nonce
 	 *                                 will be used to check if it is still valid, you know, just in case ¯\_(ツ)_/¯.
 	 * @return false|int False if the nonce is invalid, 1 if the nonce is valid and generated between
 	 *                   0-12 hours ago, 2 if the nonce is valid and generated between 12-24 hours ago.
 	 */
-	public function isValid( $value = null ) {
+	public function is_valid( $value = null ) {
 		if ( is_null( $value ) ) {
-			$value = isset( $_GET[ $this->getKey() ] ) ? $_GET[ $this->getKey() ] : $this->getNonce();
+			$value = isset( $_GET[ $this->get_key() ] ) ? $_GET[ $this->get_key() ] : $this->get_nonce();
 		}
 
-		return wp_verify_nonce( $value, $this->getAction() );
+		return wp_verify_nonce( $value, $this->get_action() );
 	}
 }

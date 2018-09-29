@@ -4,11 +4,12 @@ namespace Inpsyde\Nonce;
 
 /**
  * Common Nonce abstract class.
- * 
+ *
  * Shared across all subclasses (Nonce, Nonce_URL, Nonce_Field)
  * to access common methods. Do not instantiate.
  */
 abstract class Nonce_Common {
+	
 	/**
 	 * Default action to be used if no nonce action is set by user
 	 *
@@ -52,8 +53,8 @@ abstract class Nonce_Common {
 	 * @param string       $key (optional) A key to be used to "store" the nonce in URL or input field.
 	 */
 	public function __construct( $action = null, $key = null ) {
-		$this->setAction( $action );
-		$this->setKey( $key );
+		$this->set_action( $action );
+		$this->set_key( $key );
 	}
 
 	/**
@@ -62,14 +63,14 @@ abstract class Nonce_Common {
 	 * @param string|float|int|array $action
 	 * @return string $action The formatted action used to generate the nonce.
 	 */
-	protected function setAction( $action ) {
+	protected function set_action( $action ) {
 		if ( is_scalar( $action ) || is_array( $action ) ) {
 			$this->action = $action;
 		} else {
-			$this->action = $this->getDefaultAction();
+			$this->action = $this->get_default_action();
 		}
 
-		return $this->getAction();
+		return $this->get_action();
 	}
 
 	/**
@@ -78,14 +79,14 @@ abstract class Nonce_Common {
 	 * @param string $key
 	 * @return string $key The key used to access the nonce in the URL or input field.
 	 */
-	protected function setKey( $key ) {
+	protected function set_key( $key ) {
 		if ( is_null( $key ) ) {
-			$this->key = $this->getDefaultKey();
+			$this->key = $this->get_default_key();
 		} else {
 			$this->key = $key;
 		}
-		
-		return $this->getKey();
+
+		return $this->get_key();
 	}
 
 	/**
@@ -94,9 +95,9 @@ abstract class Nonce_Common {
 	 * @param string $nonce
 	 * @return string $nonce The generated nonce.
 	 */
-	protected function setNonce( string $nonce ) {
+	protected function set_nonce( string $nonce ) {
 		$this->nonce = $nonce;
-		return $this->getNonce();
+		return $this->get_nonce();
 	}
 
 	/**
@@ -104,8 +105,8 @@ abstract class Nonce_Common {
 	 *
 	 * @return string $action The formatted action used to generate the nonce.
 	 */
-	public function getAction() {
-		return ( is_null( $this->action ) ) ? $this->getDefaultAction() : $this->formatAction( $this->action );
+	public function get_action() {
+		return ( is_null( $this->action ) ) ? $this->get_default_action() : $this->format_action( $this->action );
 	}
 
 	/**
@@ -113,9 +114,9 @@ abstract class Nonce_Common {
 	 *
 	 * @return string $default_action The default action used if no $action is passed in the constructor.
 	 */
-	public function getDefaultAction() {
+	public function get_default_action() {
 		/**
-		 * This filter lets user change, via code, the default action 
+		 * This filter lets user change, via code, the default action
 		 * if no $action parameter is passed in the constructor.
 		 * The default action used is the WordPress one (-1).
 		 */
@@ -127,7 +128,7 @@ abstract class Nonce_Common {
 	 *
 	 * @return string $key The key used to access the nonce in the URL or input field.
 	 */
-	public function getKey() {
+	public function get_key() {
 		return $this->key;
 	}
 
@@ -136,7 +137,7 @@ abstract class Nonce_Common {
 	 *
 	 * @return string $default_key The default key used if no $key is passed in the constructor.
 	 */
-	public function getDefaultKey() {
+	public function get_default_key() {
 		/**
 		 * This filter lets user change, via code, the default key
 		 * if no $key parameter is passed in the constructor.
@@ -150,18 +151,18 @@ abstract class Nonce_Common {
 	 *
 	 * @return string $nonce The generated nonce.
 	 */
-	public function getNonce() {
+	public function get_nonce() {
 		return $this->nonce;
 	}
 
 	/**
-	 * Format an action by giving a simple string, 
+	 * Format an action by giving a simple string,
 	 * or an array like [ 'action_%s_%d', [ 'string', 123 ] ] to generate a dynamic action string using vsprintf()
 	 *
 	 * @param string|array ...$action The action to format: a simple string, or an array to use in a sprintf() or vsprintf() manner to render a dynamic string.
 	 * @return string Formatted action string if passed $action parameter is valid, or default action if parameter is invalid.
 	 */
-	protected function formatAction( ...$action ) {
+	protected function format_action( ...$action ) {
 		$action = $action[0];
 
 		if ( is_scalar( $action ) ) {
@@ -173,7 +174,7 @@ abstract class Nonce_Common {
 
 			/**
 			 * Simple hack to allow using vsprintf()-or-sprintf()-like formats, so that
-			 * [ 'placeholder_%1$s_%2$d, [ 'string', 1234 ] ] and 
+			 * [ 'placeholder_%1$s_%2$d, [ 'string', 1234 ] ] and
 			 * [ 'placeholder_%1$s_%2$d, 'string', 1234 ] will work the same.
 			 */
 			$args = is_array( $action[0] ) ? $action[0] : $action;
@@ -181,7 +182,7 @@ abstract class Nonce_Common {
 			return vsprintf( $format, $args );
 		}
 
-		return $this->getDefaultAction();
+		return $this->get_default_action();
 	}
 
 	/**
@@ -192,10 +193,10 @@ abstract class Nonce_Common {
 	 * @return string $message|$nonce
 	 */
 	public function __toString() {
-		if ( is_null( $this->getNonce() ) ) {
+		if ( is_null( $this->get_nonce() ) ) {
 			return 'Please call the create() method first in order to generate the nonce.';
 		}
-	
-		return $this->getNonce();
+
+		return $this->get_nonce();
 	}
 }
