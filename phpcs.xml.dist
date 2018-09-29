@@ -28,4 +28,14 @@
 	<rule ref="WordPress">
 		<exclude name="Squiz.Commenting" />
 	</rule>
+	
+	 <rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+		<exclude-pattern>/src/*</exclude-pattern>
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
+
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<exclude-pattern>/src/*</exclude-pattern>
+		<exclude-pattern>/tests/*</exclude-pattern>
+	</rule>
 </ruleset>
