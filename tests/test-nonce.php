@@ -18,8 +18,8 @@ class Nonce_Test extends Nonce_Test_Case {
 	 */
 	public function test_construction_without_parameters() {
 		$nonce = new Nonce();
-		$this->assertSame( self::$default_action, $nonce->getAction() );
-		$this->assertSame( self::$default_key, $nonce->getKey() );
+		$this->assertSame( self::$default_action, $nonce->get_action() );
+		$this->assertSame( self::$default_key, $nonce->get_key() );
 	}
 
 	/**
@@ -30,7 +30,7 @@ class Nonce_Test extends Nonce_Test_Case {
 		$generated_nonce = $nonce->create();
 
 		$this->assertNotNull( $generated_nonce );
-		$this->assertSame( $nonce->getNonce(), $generated_nonce );
+		$this->assertSame( $nonce->get_nonce(), $generated_nonce );
 	}
 
 	/**
@@ -40,11 +40,11 @@ class Nonce_Test extends Nonce_Test_Case {
 		$action = 'random_action';
 		$nonce  = new Nonce( $action );
 
-		$this->assertNull( $nonce->getNonce() );
+		$this->assertNull( $nonce->get_nonce() );
 
 		$nonce->create();
 
-		$this->assertNotNull( $nonce->getNonce() );
+		$this->assertNotNull( $nonce->get_nonce() );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Nonce_Test extends Nonce_Test_Case {
 		$nonce  = new Nonce( $action );
 		$nonce->create();
 
-		$expected_nonce = $nonce->getNonce();
+		$expected_nonce = $nonce->get_nonce();
 		$this->expectOutputString( $expected_nonce );
 
 		echo $nonce;
@@ -81,22 +81,22 @@ class Nonce_Test extends Nonce_Test_Case {
 		// String
 		$action_string       = 'action_1_as_a_string';
 		$nonce_with_a_string = new Nonce( $action_string );
-		$this->assertSame( $action_string, $nonce_with_a_string->getAction() );
+		$this->assertSame( $action_string, $nonce_with_a_string->get_action() );
 
 		// Array
 		$action_array_sprintf  = [ '%s_%d_as_an_%s', 'action', 2, 'array' ];
 		$action_array_vsprintf = [ '%s_%d_as_an_%s', [ 'action', 2, 'array' ] ];
 		$nonce_with_sprintf    = new Nonce( $action_array_sprintf );
 		$nonce_with_vsprintf   = new Nonce( $action_array_vsprintf );
-		$this->assertSame( $nonce_with_sprintf->getAction(), $nonce_with_vsprintf->getAction() );
+		$this->assertSame( $nonce_with_sprintf->get_action(), $nonce_with_vsprintf->get_action() );
 
 		// Invalid action
 		$invalid_action_object = new StdClass();
 		$nonce_with_object     = new Nonce( $invalid_action_object );
 		$invalid_action_null   = null;
 		$nonce_with_null       = new Nonce( $invalid_action_null );
-		$this->assertSame( self::$default_action, $nonce_with_object->getAction() );
-		$this->assertSame( self::$default_action, $nonce_with_null->getAction() );
+		$this->assertSame( self::$default_action, $nonce_with_object->get_action() );
+		$this->assertSame( self::$default_action, $nonce_with_null->get_action() );
 
 		// Filter the default action
 		$new_default_action = 'new_default_action';
@@ -106,12 +106,12 @@ class Nonce_Test extends Nonce_Test_Case {
 		} );
 
 		$nonce_without_action = new Nonce();
-		$this->assertSame( $new_default_action, $nonce_without_action->getAction() );
+		$this->assertSame( $new_default_action, $nonce_without_action->get_action() );
 	}
 
 	/**
 	 * Test that using the create() method results in the same as using native WP function,
-	 * and that isValid() will pass against the native WP nonce.
+	 * and that is_valid() will pass against the native WP nonce.
 	 * @dataProvider provider_actions_for_nonce_creation
 	 */
 	public function test_nonce_creation( $unformatted_action, $formatted_action ) {
@@ -119,7 +119,7 @@ class Nonce_Test extends Nonce_Test_Case {
 		$tested_nonce = ( new Nonce( $unformatted_action ) );
 
 		$this->assertSame( $wp_nonce, $tested_nonce->create() );
-		$this->assertValidNonce( $tested_nonce->isValid( $wp_nonce ) );
+		$this->assertValidNonce( $tested_nonce->is_valid( $wp_nonce ) );
 	}
 
 	/**
@@ -150,16 +150,16 @@ class Nonce_Test extends Nonce_Test_Case {
 
 		// Fake a nonce stored in the $_REQUEST with default key.
 		$_REQUEST[ self::$default_key ] = wp_create_nonce( $action );
-		$this->assertValidNonce( $admin_nonce_with_default_key->isValidAdminRequest() );
+		$this->assertValidNonce( $admin_nonce_with_default_key->is_valid_admin_request() );
 
 		// Fake a nonce stored in the $_REQUEST with custom key.
 		$_REQUEST[ $custom_key ] = wp_create_nonce( $action );
-		$this->assertValidNonce( $admin_nonce_with_custom_key->isValidAdminRequest() );
+		$this->assertValidNonce( $admin_nonce_with_custom_key->is_valid_admin_request() );
 
 		unset( $_REQUEST[ self::$default_key ] );
 
 		try {
-			$is_valid_admin_request = $admin_nonce_with_default_key->isValidAdminRequest();
+			$is_valid_admin_request = $admin_nonce_with_default_key->is_valid_admin_request();
 		} catch ( Exception $e ) {
 			$exception = $e;
 		}
@@ -179,18 +179,18 @@ class Nonce_Test extends Nonce_Test_Case {
 
 		// Fake a nonce stored in the $_REQUEST with default key.
 		$_REQUEST[ self::$default_key ] = wp_create_nonce( $action );
-		$this->assertValidNonce( $ajax_nonce_with_default_key->isValidAjaxRequest( false ) );
+		$this->assertValidNonce( $ajax_nonce_with_default_key->is_valid_ajax_request( false ) );
 
 		// Fake a nonce stored in the $_REQUEST with custom key.
 		$_REQUEST[ $custom_key ] = wp_create_nonce( $action );
-		$this->assertValidNonce( $ajax_nonce_with_custom_key->isValidAjaxRequest( false ) );
+		$this->assertValidNonce( $ajax_nonce_with_custom_key->is_valid_ajax_request( false ) );
 
 		// Unset faked nonces in $_REQUEST.
 		unset( $_REQUEST[ self::$default_key ] );
 		unset( $_REQUEST[ $custom_key ] );
 
-		$is_valid_ajax_request_with_default_key = $ajax_nonce_with_default_key->isValidAjaxRequest( false );
-		$is_valid_ajax_request_with_custom_key  = $ajax_nonce_with_custom_key->isValidAjaxRequest( false );
+		$is_valid_ajax_request_with_default_key = $ajax_nonce_with_default_key->is_valid_ajax_request( false );
+		$is_valid_ajax_request_with_custom_key  = $ajax_nonce_with_custom_key->is_valid_ajax_request( false );
 
 		$this->assertFalse( $is_valid_ajax_request_with_default_key );
 		$this->assertFalse( $is_valid_ajax_request_with_custom_key );
