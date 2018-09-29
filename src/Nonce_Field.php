@@ -1,6 +1,6 @@
 <?php
 
-namespace Inpsyde\Nonce;
+namespace Pskli\Nonce;
 
 /**
  * Nonce class for input fields.

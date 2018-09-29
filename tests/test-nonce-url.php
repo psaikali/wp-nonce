@@ -1,7 +1,7 @@
 <?php
 
-use Inpsyde\Nonce\Nonce as Nonce;
-use Inpsyde\Nonce\Nonce_URL as Nonce_URL;
+use Pskli\Nonce\Nonce as Nonce;
+use Pskli\Nonce\Nonce_URL as Nonce_URL;
 
 /**
  * @group nonce-url
@@ -11,7 +11,7 @@ class Nonce_URL_Test extends Nonce_Test_Case {
 	 * Test if our class exists.
 	 */
 	public function test_class_exists() {
-		$this->assertTrue( class_exists( 'Inpsyde\Nonce\Nonce_URL' ) );
+		$this->assertTrue( class_exists( 'Pskli\Nonce\Nonce_URL' ) );
 	}
 
 	/**

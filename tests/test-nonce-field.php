@@ -1,7 +1,7 @@
 <?php
 
-use Inpsyde\Nonce\Nonce as Nonce;
-use Inpsyde\Nonce\Nonce_Field as Nonce_Field;
+use Pskli\Nonce\Nonce as Nonce;
+use Pskli\Nonce\Nonce_Field as Nonce_Field;
 
 /**
  * @group nonce-field
@@ -11,7 +11,7 @@ class Nonce_Field_Test extends Nonce_Test_Case {
 	 * Test if our class exists.
 	 */
 	public function test_class_exists() {
-		$this->assertTrue( class_exists( 'Inpsyde\Nonce\Nonce_Field' ) );
+		$this->assertTrue( class_exists( 'Pskli\Nonce\Nonce_Field' ) );
 	}
 
 	/**

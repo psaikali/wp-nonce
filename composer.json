@@ -1,5 +1,5 @@
 {
-	"name": "pskli/inpsyde-nonce",
+	"name": "pskli/wp-nonce",
 	"description": "Use WordPress nonces in an object-oriented way.",
 	"type": "package",
 	"authors": [
@@ -22,7 +22,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Inpsyde\\Nonce\\": "src/"
+			"Pskli\\Nonce\\": "src/"
 		}
 	}
 }

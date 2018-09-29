@@ -1,6 +1,6 @@
 <?php
 
-use Inpsyde\Nonce\Nonce as Nonce;
+use Pskli\Nonce\Nonce as Nonce;
 
 /**
  * @group nonce
@@ -10,7 +10,7 @@ class Nonce_Test extends Nonce_Test_Case {
 	 * Test if our class exists.
 	 */
 	public function test_class_exists() {
-		$this->assertTrue( class_exists( 'Inpsyde\Nonce\Nonce' ) );
+		$this->assertTrue( class_exists( 'Pskli\Nonce\Nonce' ) );
 	}
 
 	/**
