@@ -119,7 +119,7 @@ abstract class Nonce_Common {
 		 * if no $action parameter is passed in the constructor.
 		 * The default action used is the WordPress one (-1).
 		 */
-		return apply_filters( 'inpsyde.nonce.default_action', self::$default_action );
+		return apply_filters( 'pskli.nonce.default_action', self::$default_action );
 	}
 
 	/**
@@ -142,7 +142,7 @@ abstract class Nonce_Common {
 		 * if no $key parameter is passed in the constructor.
 		 * The default key used is the WordPress one (_wpnonce).
 		 */
-		return apply_filters( 'inpsyde.nonce.default_key', self::$default_key );
+		return apply_filters( 'pskli.nonce.default_key', self::$default_key );
 	}
 
 	/**

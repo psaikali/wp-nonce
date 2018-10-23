@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="Inpsyde Nonce Coding Standards" namespace="Pskli\Nonce">
-	<description>Coding standard for Inpsyde Nonce library.</description>
+<ruleset name="Pskli Nonce Coding Standards" namespace="Pskli\Nonce">
+	<description>Coding standard for Pskli Nonce library.</description>
 
 	<!--###########################
 		Folders to scan

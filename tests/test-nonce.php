@@ -101,7 +101,7 @@ class Nonce_Test extends Nonce_Test_Case {
 		// Filter the default action
 		$new_default_action = 'new_default_action';
 
-		add_filter( 'inpsyde.nonce.default_action', function( $default_action ) use ( $new_default_action ) {
+		add_filter( 'pskli.nonce.default_action', function( $default_action ) use ( $new_default_action ) {
 			return $new_default_action;
 		} );
 
